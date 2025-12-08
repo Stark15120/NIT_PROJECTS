@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Dictionary Search</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vscode: {
+              bg: '#3e3e42',
+              panel: '#1e1e1e',
+              accent: '#38bdf8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="min-h-screen bg-vscode-bg text-white antialiased">
+
+  <main class="flex items-center justify-center px-6 py-16">
+    <section class="w-full max-w-3xl">
+
+      <header class="mb-10 text-center">
+        <h1 class="text-3xl font-semibold tracking-tight">AI Name Search</h1>
+        <p class="mt-2 text-sm text-gray-300">Type the purpose that you need of AI</p>
+      </header>
+
+      <div class="bg-vscode-panel/70 backdrop-blur-md border border-white/6 rounded-2xl p-8 shadow-lg">
+
+        <!-- Search form -->
+        <form id="searchForm" class="flex gap-3" onsubmit="return false;">
+          <input
+            id="searchBox"
+            type="text"
+            placeholder="Enter key like: email, website, captions..."
+            class="flex-1 px-5 py-3 rounded-full bg-transparent border border-white/10 focus:border-vscode-accent outline-none"
+          />
+
+          <button
+            id="searchBtn"
+            class="px-5 py-3 rounded-full bg-vscode-accent/20 border border-vscode-accent/30"
+          >
+            Search
+          </button>
+        </form>
+
+        <!-- RESULT BOX -->
+        <div id="resultBox" class="mt-6 text-center p-4 border border-white/10 rounded-xl hidden"></div>
+
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Link external JS -->
+  <script src="ai.js"></script>
+
+</body>
+</html>
