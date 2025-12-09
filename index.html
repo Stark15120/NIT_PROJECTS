@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Dictionary Search</title>
+  <title>AI Dictionary Search web</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -27,9 +27,9 @@
 <body class="min-h-screen bg-vscode-bg text-white antialiased">
 
   <main class="flex items-center justify-center px-6 py-16">
-    <section class="w-full max-w-3xl">
+    <section class="w-full max-w-4xl">
 
-      <header class="mb-10 text-center">
+      <header class="mb-8 text-center">
         <h1 class="text-3xl font-semibold tracking-tight">AI Name Search</h1>
         <p class="mt-2 text-sm text-gray-300">Type the purpose that you need of AI</p>
       </header>
@@ -48,13 +48,27 @@
           <button
             id="searchBtn"
             class="px-5 py-3 rounded-full bg-vscode-accent/20 border border-vscode-accent/30"
+            type="button"
           >
             Search
           </button>
         </form>
 
-        <!-- RESULT BOX -->
-        <div id="resultBox" class="mt-6 text-center p-4 border border-white/10 rounded-xl hidden"></div>
+        <!-- RESULT BOX (hidden by default) -->
+        <div id="resultBox" class="mt-6 text-left p-4 border border-white/10 rounded-xl hidden bg-black/20">
+
+          <!-- Table header -->
+          <div class="grid grid-cols-12 gap-4 items-center px-3 py-2 border-b border-white/6">
+            <div class="col-span-3 font-medium">Name</div>
+            <div class="col-span-1 font-medium">Icon</div>
+            <div class="col-span-2 font-medium">Status</div>
+            <div class="col-span-6 font-medium">Description</div>
+          </div>
+
+          <!-- Table body injected by JS -->
+          <div id="tableBody" class="divide-y divide-white/6"></div>
+
+        </div>
 
       </div>
 
