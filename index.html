@@ -3,80 +3,119 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Dictionary Search web</title>
+  <title>AI Dictionary Search</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            vscode: {
-              bg: '#3e3e42',
-              panel: '#1e1e1e',
-              accent: '#38bdf8',
-            }
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          vscode: {
+            bg: '#303030',          // Deep black background
+            panel: '#141414',       // Slightly lighter panel black
+            accent: '#1E90FF',      // Bright blue (VSCode blue)
+            accentStrong: '#3BA7FF' // Stronger neon-like blue
           }
         }
       }
     }
-  </script>
+  }
+</script>
+
+<style>
+  .search-wrap { position: relative; }
+
+  /* VS Code style suggestion box in black-blue theme */
+  #suggestList {
+    background: #0A0A0A;                                     /* Black finish */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.75);
+    border-radius: 8px;
+    border: 1px solid rgba(30,144,255,0.25);                 /* Blue border glow */
+  }
+
+  #suggestList .hint {
+    font-size: 12px;
+    color: rgba(59,167,255,0.6);                             /* Soft blue */
+  }
+
+  /* history chips in soft blue finish */
+  .history-chip {
+    background: rgba(30,144,255,0.05);                       /* faint blue bg */
+    border: 1px solid rgba(30,144,255,0.25);                 /* subtle blue ring */
+    color: #3BA7FF;
+    transition: 0.2s ease;
+  }
+
+  .history-chip:hover {
+    background: rgba(30,144,255,0.15);
+    border-color: #3BA7FF;                                   /* brighter on hover */
+  }
+</style>
+
+
+  </style>
 </head>
 
 <body class="min-h-screen bg-vscode-bg text-white antialiased">
-
   <main class="flex items-center justify-center px-6 py-16">
     <section class="w-full max-w-4xl">
-
-      <header class="mb-8 text-center">
-        <h1 class="text-3xl font-semibold tracking-tight">AI Name Search</h1>
-        <p class="mt-2 text-sm text-gray-300">Type the purpose that you need of AI</p>
+      <header class="mb-6 text-center">
+        <h1 class="text-3xl font-semibold tracking-tight">AIFS</h1>
+        <p class="mt-2 text-sm text-gray-300">Type the Purpose of  AI</p>
       </header>
 
-      <div class="bg-vscode-panel/70 backdrop-blur-md border border-white/6 rounded-2xl p-8 shadow-lg">
+      <div class="bg-vscode-panel/80 backdrop-blur-md border border-white/6 rounded-2xl p-6 shadow-lg">
 
-        <!-- Search form -->
-        <form id="searchForm" class="flex gap-3" onsubmit="return false;">
-          <input
-            id="searchBox"
-            type="text"
-            placeholder="Enter key like: email, website, captions..."
-            class="flex-1 px-5 py-3 rounded-full bg-transparent border border-white/10 focus:border-vscode-accent outline-none"
-          />
+        <form id="searchForm" class="search-wrap" onsubmit="return false;">
+          <div id="tagContainer" class="flex flex-wrap gap-2 mb-3"></div>
 
-          <button
-            id="searchBtn"
-            class="px-5 py-3 rounded-full bg-vscode-accent/20 border border-vscode-accent/30"
-            type="button"
-          >
-            Search
-          </button>
+          <div class="flex gap-3 items-center">
+            <input
+              id="searchBox"
+              type="text"
+              autocomplete="off"
+              placeholder="Enter key like: email, website, captions..."
+              class="flex-1 px-5 py-3 rounded-full bg-transparent border border-white/8 focus:border-vscode-accent outline-none"
+            />
+            <button
+              id="searchBtn"
+              class="px-5 py-3 rounded-full bg-vscode-accent/20 border border-vscode-accent/30"
+              type="button"
+            >Search</button>
+          </div>
+
+          <!-- suggestion list -->
+          <div id="suggestList" class="hidden absolute left-0 right-0 mt-20 z-50 rounded-lg bg-[#0b0b0c]/90 max-h-56 overflow-auto">
+            <!-- keyboard hint row -->
+            <div class="px-3 py-2 border-b border-white/6 flex items-center justify-between">
+              <!-- <div class="hint">History shown below</div> -->
+            </div>
+            <div id="suggestInner" class="divide-y divide-white/6"></div>
+          </div>
         </form>
 
-        <!-- RESULT BOX (hidden by default) -->
-        <div id="resultBox" class="mt-6 text-left p-4 border border-white/10 rounded-xl hidden bg-black/20">
+        <!-- History -->
+        <div id="historyWrap" class="mt-4">
+          <!-- <div class="text-sm text-gray-300 mb-2">Recent searches</div> -->
+          <div id="historyList" class="flex flex-wrap gap-2"></div>
+        </div>
 
-          <!-- Table header -->
+        <!-- Result box -->
+        <div id="resultBox" class="mt-6 text-left p-4 border border-white/10 rounded-xl hidden bg-black/20">
           <div class="grid grid-cols-12 gap-4 items-center px-3 py-2 border-b border-white/6">
             <div class="col-span-3 font-medium">Name</div>
             <div class="col-span-1 font-medium">Icon</div>
             <div class="col-span-2 font-medium">Status</div>
             <div class="col-span-6 font-medium">Description</div>
           </div>
-
-          <!-- Table body injected by JS -->
           <div id="tableBody" class="divide-y divide-white/6"></div>
-
         </div>
 
       </div>
-
     </section>
   </main>
 
-  <!-- Link external JS -->
   <script src="ai.js"></script>
-
 </body>
 </html>
