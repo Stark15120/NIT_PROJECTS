@@ -5,10 +5,40 @@ const aiData = {
     { name: "Flowrite", icon: "✉️", status: "Popular", description: "AI-powered email assistant.", url: "https://flowrite.com" },
     { name: "LoveAB Mail", icon: "📧", status: "Beta", description: "Fast email generator.", url: "https://loveab.com" }
   ],
-  website: { name: "Bolt / Loveable", icon: "🌐", status: "Popular", description: "AI website builder.", url: "https://lovable.dev" },
+  image_generations: [
+    { name: "midjourney", icon: "✉️", status: "Paid", description: "High-quality image generation", url: "https://www.midjourney.com " },
+    { name: "DALL·E", icon: "📧", status: "Paid + Free", description: "Image creation & editing", url: "https://openai.com/dall-e " },
+    { name: "Leonardo AI", icon: "📧", status: "Paid + Free", description: "Product, game assets ", url: "https://leonardo.ai " },
+    { name: "Adobe Firefly", icon: "📧", status: "Paid + Free", description: "Commercial-safe images", url: "https://firefly.adobe.com " },
+    { name: "krea", icon: "📧", status: "Paid + Free", description: "for a live img generation", url: "https://www.krea.ai/" }
+  ],
+  video_generations: [
+    { name: "Runway ML ", icon: "✉️", status: "Paid + Free", description: "AI video creation", url: "https://runwayml.com " },
+    { name: "Pika Labs ", icon: "📧", status: "Paid + Free", description: "Text-to-video", url: "https://pika.art " },
+    { name: "Synthesia ", icon: "📧", status: "Paid", description: "Corporate avatar videos", url: "https://www.synthesia.io " },
+    { name: "HeyGen ", icon: "📧", status: "Paid", description: "AI presenter videos", url: "https://www.heygen.com " }
+  ],
+  web_development: [
+    { name: "Bolt.new", icon: "✉️", status: "Paid", description: "High-quality image generation", url: "https://bolt.new " },
+    { name: "Durable", icon: "📧", status: "Free + Paid", description: "Image creation & editing", url: " https://durable.co " },
+    { name: "Wix ADI", icon: "📧", status: "BetFree + Paida", description: "Product, game assets", url: "https://www.wix.com/adi " },
+    { name: "stich", icon: "📧", status: "BetFree + Paida", description: "for a ui design and front-end web", url: "https://stitch.withgoogle.com" },
+    { name: "Framer AI", icon: "📧", status: "Free + Paid", description: "Commercial-safe images", url: "https://firefly.adobe.com " }
+  ],
+  app_development: [
+    { name: "FlutterFlow", icon: "✉️", status: "Free + Paid", description: "No-code app builder", url: " https://flutterflow.io" },
+    { name: "Adalo", icon: "📧", status:"Free + Paid", description: "Mobile app creation", url: "https://www.adalo.com " },
+    { name: "Glide", icon: "📧", status: "Free + Paid", description: "Database-driven apps", url: "https://www.glideapps.com " }
+  ],
+  ui_ux_design: [
+    { name: "Figma AI ", icon: "✉️", status: "Free + Paid", description: "UI design & prototyping", url: "https://www.figma.com " },
+    { name: "stich", icon: "📧", status: "BetFree + Paida", description: "for a ui design and front-end web", url: "https://stitch.withgoogle.com" },
+    { name: "Uizard", icon: "📧", status:"Free + Paid", description: "Sketch to UI ", url: "https://uizard.io " },
+    { name: "Galileo AI", icon: "📧", status: "Paid", description: "UI generation from text ", url: "https://www.usegalileo.ai " },
+    { name: "Visily", icon: "📧", status: "Free + Paid", description: "Wireframes & mockups ", url: "https://www.visily.ai " }
+  ],
   presentation: { name: "Gamma", icon: "📊", status: "Popular", description: "AI presentation creator.", url: "https://gamma.app" },
-  captions: { name: "Copy.ai", icon: "✍️", status: "Popular", description: "AI caption generator.", url: "https://www.copy.ai" },
-  img_gen: { name: "Midjourney", icon: "🖼️", status: "Popular", description: "AI image generator.", url: "https://www.midjourney.com" }
+  captions: { name: "Copy.ai", icon: "✍️", status: "Popular", description: "AI caption generator.", url: "https://www.copy.ai" }
 };
 
 // -----------------------
@@ -354,3 +384,97 @@ if (searchBtn) {
 window._aiData = aiData;
 window._keys = keys;
 window._history = historyItems;
+
+
+// footer.js - tiny script to populate dynamic year in footer
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.getElementById('landingFooterYear');
+  if (el) el.textContent = new Date().getFullYear();
+});
+
+// privacy / terms
+  const privacyContent = `
+  <p><strong>Last updated:</strong> ${new Date().getFullYear()}</p>
+
+  <p>
+    At <strong>AIFS</strong>, your privacy is important to us. This website is designed
+    to help users discover AI tools without collecting unnecessary personal data.
+  </p>
+
+  <p>
+    <strong>Information We Collect</strong><br>
+    We do not collect personal information such as name, email, or phone number.
+    Any data entered into the search bar is processed locally for functionality only.
+  </p>
+
+  <p>
+    <strong>Third-Party Links</strong><br>
+    Our website may contain links to third-party AI tools. We are not responsible
+    for their privacy practices or content.
+  </p>
+
+  <p>
+    <strong>Cookies</strong><br>
+    AIFS does not use tracking cookies. Basic browser storage may be used
+    to improve user experience (such as history suggestions).
+  </p>
+
+  <p>
+    <strong>Updates</strong><br>
+    This policy may be updated occasionally. Continued use of the site
+    means you accept the changes.
+  </p>
+  `;
+
+  const termsContent = `
+  <p><strong>Last updated:</strong> ${new Date().getFullYear()}</p>
+
+  <p>
+    By accessing and using <strong>AIFS</strong>, you agree to the following terms
+    and conditions.
+  </p>
+
+  <p>
+    <strong>Use of the Website</strong><br>
+    AIFS is provided for informational purposes only. You may not misuse
+    the content or attempt to disrupt the service.
+  </p>
+
+  <p>
+    <strong>Accuracy of Information</strong><br>
+    We strive to keep AI tool information accurate, but we do not guarantee
+    completeness or correctness.
+  </p>
+
+  <p>
+    <strong>External Links</strong><br>
+    We are not responsible for any loss or damage caused by third-party websites
+    linked from AIFS.
+  </p>
+
+  <p>
+    <strong>Limitation of Liability</strong><br>
+    AIFS is not liable for any direct or indirect damages resulting from the use
+    of this website.
+  </p>
+  `;
+
+  function openPolicy(type) {
+    const modal = document.getElementById("policyModal");
+    const title = document.getElementById("policyTitle");
+    const content = document.getElementById("policyContent");
+
+    if (type === "privacy") {
+      title.innerText = "Privacy Policy";
+      content.innerHTML = privacyContent;
+    } else {
+      title.innerText = "Terms & Conditions";
+      content.innerHTML = termsContent;
+    }
+
+    modal.classList.remove("hidden");
+  }
+
+  function closePolicy() {
+    document.getElementById("policyModal").classList.add("hidden");
+  }

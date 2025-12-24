@@ -12,10 +12,10 @@
       extend: {
         colors: {
           vscode: {
-            bg: '#303030',          // Deep black background
-            panel: '#141414',       // Slightly lighter panel black
-            accent: '#1E90FF',      // Bright blue (VSCode blue)
-            accentStrong: '#3BA7FF' // Stronger neon-like blue
+            bg: '#303030',
+            panel: '#141414',
+            accent: '#1E90FF',
+            accentStrong: '#3BA7FF'
           }
         }
       }
@@ -26,43 +26,81 @@
 <style>
   .search-wrap { position: relative; }
 
-  /* VS Code style suggestion box in black-blue theme */
   #suggestList {
-    background: #0A0A0A;                                     /* Black finish */
+    background: #0A0A0A;
     box-shadow: 0 6px 18px rgba(0,0,0,0.75);
     border-radius: 8px;
-    border: 1px solid rgba(30,144,255,0.25);                 /* Blue border glow */
+    border: 1px solid rgba(30,144,255,0.25);
+    z-index: 100;
   }
 
   #suggestList .hint {
     font-size: 12px;
-    color: rgba(59,167,255,0.6);                             /* Soft blue */
+    color: rgba(59,167,255,0.6);
   }
 
-  /* history chips in soft blue finish */
   .history-chip {
-    background: rgba(30,144,255,0.05);                       /* faint blue bg */
-    border: 1px solid rgba(30,144,255,0.25);                 /* subtle blue ring */
+    background: rgba(30,144,255,0.05);
+    border: 1px solid rgba(30,144,255,0.25);
     color: #3BA7FF;
     transition: 0.2s ease;
   }
 
   .history-chip:hover {
     background: rgba(30,144,255,0.15);
-    border-color: #3BA7FF;                                   /* brighter on hover */
+    border-color: #3BA7FF;
   }
+
+  /* AI card hover effect */
+  .ai-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(30,144,255,0.35);
+    border-color: rgba(30,144,255,0.45);
+  }
+  
 </style>
 
-
-  </style>
 </head>
+
+<!-- Privacy / Terms Modal -->
+<div id="policyModal" class="fixed inset-0 z-50 hidden">
+  <!-- overlay -->
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closePolicy()"></div>
+
+  <!-- modal box -->
+  <div class="relative max-w-3xl mx-auto mt-16 bg-vscode-panel border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+    
+    <!-- header -->
+    <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
+      <h2 id="policyTitle" class="text-lg font-semibold text-vscode-accent">
+        Privacy Policy
+      </h2>
+      <button onclick="closePolicy()" class="text-gray-400 hover:text-white text-xl">✕</button>
+    </div>
+
+    <!-- content -->
+    <div id="policyContent" class="px-6 py-5 text-sm text-gray-300 max-h-[70vh] overflow-y-auto leading-relaxed space-y-4">
+      <!-- dynamic content inserted by JS -->
+    </div>
+
+    <!-- footer -->
+    <div class="px-6 py-4 border-t border-white/10 text-right">
+      <button onclick="closePolicy()" class="px-4 py-2 rounded-lg bg-vscode-accent/20 border border-vscode-accent/30">
+        Close
+      </button>
+    </div>
+
+  </div>
+</div>
+
 
 <body class="min-h-screen bg-vscode-bg text-white antialiased">
   <main class="flex items-center justify-center px-6 py-16">
     <section class="w-full max-w-4xl">
+
       <header class="mb-6 text-center">
         <h1 class="text-3xl font-semibold tracking-tight">AIFS</h1>
-        <p class="mt-2 text-sm text-gray-300">Type the Purpose of  AI</p>
+        <p class="mt-2 text-sm text-gray-300">Type the Purpose of AI</p>
       </header>
 
       <div class="bg-vscode-panel/80 backdrop-blur-md border border-white/6 rounded-2xl p-6 shadow-lg">
@@ -78,6 +116,7 @@
               placeholder="Enter key like: email, website, captions..."
               class="flex-1 px-5 py-3 rounded-full bg-transparent border border-white/8 focus:border-vscode-accent outline-none"
             />
+
             <button
               id="searchBtn"
               class="px-5 py-3 rounded-full bg-vscode-accent/20 border border-vscode-accent/30"
@@ -85,19 +124,14 @@
             >Search</button>
           </div>
 
-          <!-- suggestion list -->
           <div id="suggestList" class="hidden absolute left-0 right-0 mt-20 z-50 rounded-lg bg-[#0b0b0c]/90 max-h-56 overflow-auto">
-            <!-- keyboard hint row -->
-            <div class="px-3 py-2 border-b border-white/6 flex items-center justify-between">
-              <!-- <div class="hint">History shown below</div> -->
-            </div>
+            <div class="px-3 py-2 border-b border-white/6 flex items-center justify-between"></div>
             <div id="suggestInner" class="divide-y divide-white/6"></div>
           </div>
         </form>
 
         <!-- History -->
         <div id="historyWrap" class="mt-4">
-          <!-- <div class="text-sm text-gray-300 mb-2">Recent searches</div> -->
           <div id="historyList" class="flex flex-wrap gap-2"></div>
         </div>
 
@@ -113,8 +147,124 @@
         </div>
 
       </div>
+
+      <!-- ========================================= -->
+      <!-- ⭐ AI CARDS ADDED HERE AFTER OUTPUT ⭐ -->
+      <!-- ========================================= -->
+
+     <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+  <!-- ChatGPT -->
+<a
+  href="https://chat.openai.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block cursor-pointer hover:-translate-y-1
+         hover:shadow-2xl
+         hover:border-vscode-accent"
+>
+  <div
+  class="ai-card relative z-[-10] bg-vscode-panel/80 border border-white/100
+         rounded-2xl p-5 text-center transition-all duration-300
+         "
+>
+
+    <img
+      src="./img/img(chat).jpg"
+      class="w-20 h-20 mx-auto mb-3 opacity-90"
+    />
+    <h3 class="text-lg font-semibold">ChatGPT</h3>
+  </div>
+</a>
+
+  <!-- Perplexity -->
+<a
+  href="https://www.perplexity.ai"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block cursor-pointer hover:-translate-y-1
+         hover:shadow-2xl
+         hover:border-vscode-accent"
+>
+  <div class="ai-card relative z-[-10] bg-vscode-panel/80 border border-white/100 rounded-2xl p-5 text-center transition-all duration-300">
+    <img
+      src="./img/img(perplexity).jpg"
+      class="w-20 h-20 mx-auto mb-3 opacity-90"
+    />
+    <h3 class="text-lg font-semibold">Perplexity</h3>
+  </div>
+</a>
+
+  <!-- DeepSeek -->
+  <a
+  href="https://chat.deepseek.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block cursor-pointer hover:-translate-y-1
+         hover:shadow-2xl
+         hover:border-vscode-accent  "
+>
+  <div class="ai-card relative z-[-10] bg-vscode-panel/80 border border-white/100 rounded-2xl p-5 text-center transition-all duration-300">
+    <img
+      src="./img/img(deepseek).png"
+      class="w-20 h-20 mx-auto mb-3 opacity-90"
+    />
+    <h3 class="text-lg font-semibold">DeepSeek</h3>
+  </div>
+</a>
+
+</div>
+
     </section>
   </main>
+
+  <!-- footer.html - simple wide landing footer -->
+<section id="landing-footer" class="w-full bg-vscode-panel/95 border-t border-white/6">
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <!-- single centered line -->
+    <div class="text-center">
+      <p class="text-sm text-gray-300">
+        Built with ❤️ for AIFS — Helping you discover the right AI tools.
+      </p>
+    </div>
+
+    <!-- thin separator line -->
+    <div class="mt-6">
+      <div class="h-px bg-white/6"></div>
+    </div>
+
+    <!-- bottom row: left brand, center copyright, right small links -->
+    <div class="mt-6 flex flex-col md:flex-row items-center justify-between gap-3">
+      <!-- brand -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-md bg-vscode-accent/10 flex items-center justify-center text-vscode-accent font-semibold">A</div>
+        <div>
+          <div class="text-sm text-white font-semibold">AIFS</div>
+          <div class="text-xs text-gray-400">AI tools directory</div>
+        </div>
+      </div>
+
+      <!-- center copyright -->
+      <div class="text-center text-xs text-gray-400">
+        © <span id="landingFooterYear"></span> NIT. All rights reserved.
+      </div>
+
+      <!-- right links -->
+      <div class="flex gap-4">
+        <a href="javascript:void(0)" onclick="openPolicy('privacy')" class="text-xs text-gray-300 hover:underline">
+          Privacy
+        </a>
+        <a href="javascript:void(0)" onclick="openPolicy('terms')" class="text-xs text-gray-300 hover:underline">
+          Terms
+        </a>
+        <a href="#" class="text-xs text-gray-300 hover:underline">
+          Contact
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <script src="ai.js"></script>
 </body>
